@@ -56,4 +56,10 @@ public class PatientServiceTest {
         }
     }
 
+    @Test
+    public void testPatientUpdatePatientNameWithId(){
+        int count = patientRepository.updatePatientNameById("Priya Sharma", Long.valueOf(1));
+        System.out.println("Number of rows updated :"+count);
+    }
+
 }

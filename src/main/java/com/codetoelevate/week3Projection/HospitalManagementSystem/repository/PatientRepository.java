@@ -4,8 +4,11 @@ import com.codetoelevate.week3Projection.HospitalManagementSystem.dto.BloodGroup
 import com.codetoelevate.week3Projection.HospitalManagementSystem.dto.CPatientInfo;
 import com.codetoelevate.week3Projection.HospitalManagementSystem.dto.IPatientInfo;
 import com.codetoelevate.week3Projection.HospitalManagementSystem.entities.Patient;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -21,4 +24,10 @@ public interface PatientRepository extends JpaRepository<Patient, Long> {
     @Query("select new com.codetoelevate.week3Projection.HospitalManagementSystem.dto.BloodGroupStats(p.bloodGroup, COUNT(p))" +
             " from Patient p group by p.bloodGroup order by COUNT(p) desc")
     List<BloodGroupStats> getBloodGroupStats();
+
+    @Transactional
+    @Modifying
+    @Query("UPDATE Patient p set p.name=:name where p.id=:id")
+    int updatePatientNameById(@Param("name") String name,
+                              @Param("id") Long id);
 }
