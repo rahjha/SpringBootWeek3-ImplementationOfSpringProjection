@@ -5,6 +5,7 @@ import com.codetoelevate.week3Projection.HospitalManagementSystem.dto.CPatientIn
 import com.codetoelevate.week3Projection.HospitalManagementSystem.dto.IPatientInfo;
 import com.codetoelevate.week3Projection.HospitalManagementSystem.entities.Patient;
 import com.codetoelevate.week3Projection.HospitalManagementSystem.repository.PatientRepository;
+import com.codetoelevate.week3Projection.HospitalManagementSystem.service.PatientService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,6 +15,8 @@ import java.util.List;
 @SpringBootTest
 public class PatientServiceTest {
 
+    @Autowired
+    private PatientService patientService;
     @Autowired
     private PatientRepository patientRepository;
 
@@ -60,6 +63,11 @@ public class PatientServiceTest {
     public void testPatientUpdatePatientNameWithId(){
         int count = patientRepository.updatePatientNameById("Priya Sharma", Long.valueOf(1));
         System.out.println("Number of rows updated :"+count);
+    }
+
+    @Test
+    public void testPatientTransactions(){
+        patientService.testPatientTransactions();
     }
 
 }
